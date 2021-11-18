@@ -1,11 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatInputModule } from '@angular/material/input';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
-import {MatInputModule} from '@angular/material/input';
-import { Coordinate, Direction, Inventory, ItemManifest, Room, Rooms } from './world';
 import { Compass } from './compass';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ReactiveFormsModule } from '@angular/forms';
+import { Direction } from './world';
 
 let fixture: ComponentFixture<AppComponent>;
 let app: AppComponent;
@@ -17,7 +18,8 @@ describe('AppComponent', () => {
         RouterTestingModule,
         MatInputModule,
         BrowserAnimationsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        MatChipsModule
       ],
       declarations: [
         AppComponent
@@ -32,6 +34,12 @@ describe('AppComponent', () => {
     expect(app.currentRoom.id).toEqual(app.startingLocation);
   });
 
+  it(`should include a room decorator`, () => {
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+    expect(compiled.querySelector('app-room-decorator')).toBeTruthy();
+});  
+
   describe('navigation', () => {
     // FIXME build a smaller testable Rooms world and inject so tests are not dependent on content change
     describe('valid exits', () => {
@@ -43,16 +51,7 @@ describe('AppComponent', () => {
           let direction = new Compass().direction(testArgs.command);
           app.navigate(direction as Direction);
           expect(app.currentRoom.id).toEqual(testArgs.expectedRoomId);
-          fixture.detectChanges();
-          const compiled = fixture.nativeElement as HTMLElement;
-          expect(compiled.querySelector('#currentRoomId')?.textContent).toContain(testArgs.expectedRoomId);
           });  
-      });
-
-      it('should render current location', () => {
-        fixture.detectChanges();
-        const compiled = fixture.nativeElement as HTMLElement;
-        expect(compiled.querySelector('#currentRoomId')?.textContent).toContain(app.currentRoom.id);
       });
     });
 

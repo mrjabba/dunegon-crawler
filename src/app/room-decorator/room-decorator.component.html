@@ -1,0 +1,16 @@
+<div class="room" *ngIf="currentRoom">
+  <h4>Location (<span id="currentRoomId">{{ currentRoom.id }}</span>)</h4>
+  <div>{{currentRoom.desc}}</div>
+  <div [style]="currentRoom.style">*</div>
+  <span [ngSwitch]="currentRoom.style">
+    <ng-container *ngSwitchCase="'room'">
+      a room
+    </ng-container>
+    <ng-container *ngSwitchCase="'hallway'">
+      a hallway
+    </ng-container>
+    <ng-container *ngSwitchDefault>
+      i'm the default
+    </ng-container>
+  </span>  
+</div>

@@ -1,32 +1,51 @@
-<div>
-  <h1>kevin game!</h1>
-  <div>blah blah blah</div>
+<div class="tile">
+  <div class="title"><h1>Welcome to the world</h1></div>
+  <form>
+    <div class="location" *ngIf="currentRoom">
+      <app-room-decorator id="currentRoomId" [currentRoom]="currentRoom"></app-room-decorator>
+      <div class="room-contents">
+        <h4>Room contents</h4>
+        <mat-chip-list>
+          <mat-chip *ngFor="let item of this.currentRoom.items"
+          (click)="quickNav(item.name)"
+          >{{item.name}}</mat-chip>
+        </mat-chip-list>
+      </div>
+      <div class="exits">
+        <h4>Available Exits</h4>
+        <div class="navigation">
+          <button *ngFor="let coordinate of currentRoom.exits" mat-flat-button (click)="nav(coordinate.direction)" color="accent">{{coordinate.direction }}</button>
+        </div>
+      </div>
+      <div class="navigation">
+        <mat-form-field appearance="fill">
+          <mat-label>Command</mat-label>
+          <input class="command" type="text" matInput [formControl]="commandControl" [errorStateMatcher]="matcher"
+                placeholder="Ex: inventory">
+          <mat-hint>Your command.</mat-hint>
+          <mat-error *ngIf="!commandControl.hasError('required')">
+            Command not valid.
+          </mat-error>
+          <mat-error *ngIf="commandControl.hasError('required')">
+            Command is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+        <button mat-flat-button (click)="go()" color="primary">Go</button>
+        <button id="start-over" mat-flat-button (click)="startOver()" color="accent">Start Over</button>
+    </div>
 
-<div>
+    </div>
+  </form>
+  <!-- debug -->
+  <!-- <div>
+    <p>
+      <b>Rooms:</b> {{ rooms | json }}
+    </p>
   </div>
   <div>
-    <div>Directions</div>
-    <div><button>North</button></div>
-    <div>South</div>
-    <div>East</div>
-    <div>West</div>
-  </div>
-  <div><b>Rooms:</b> {{ rooms | json }}</div>
-  <div><b>Current Room:</b> {{ currentRoom | json }}</div>
-  <div><b>Location: </b><span id="currentRoomId">{{ currentRoom.id }}</span></div>
+    <p>
+      <b>Current Room:</b> {{ currentRoom | json }}
+    </p>
+  </div> -->
 </div>
-<form>
-  <mat-form-field appearance="fill">
-    <mat-label>Command</mat-label>
-    <input type="text" matInput [formControl]="commandControl" [errorStateMatcher]="matcher"
-           placeholder="Ex: inventory">
-    <mat-hint>Your command.</mat-hint>
-    <mat-error *ngIf="!commandControl.hasError('required')">
-      Command not valid.
-    </mat-error>
-    <mat-error *ngIf="commandControl.hasError('required')">
-      Command is <strong>required</strong>
-    </mat-error>
-  </mat-form-field>
-  <button mat-button (click)="go()">Go</button>
-</form>
+

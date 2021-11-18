@@ -1,4 +1,4 @@
-import { Coordinate, Direction, Inventory, ItemManifest, Room, Rooms } from './world';
+import { Coordinate, Direction, Inventory, ItemManifest, Room } from './world';
 
 export class Compass {
   private directions: Map<Direction, string[]> = new Map();
