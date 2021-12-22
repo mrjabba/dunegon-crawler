@@ -42,7 +42,8 @@ export class AppComponent {
     let command = this.commandControl.value;
     let direction = new Compass().direction(command);
     if (direction) {
-      this.navigate(direction);
+      // FIXME moved navigation down into the room decorator
+      // this.navigate(direction);
     } else {
       console.log('wat?');
     }
@@ -52,28 +53,9 @@ export class AppComponent {
     this.currentRoom = this.worldService.getRoom(this.startingLocation);
   }
 
-  public quickNav(value: string) {
-    console.log(`quickNav ` + value);
+  public selectItem(value: string) {
+    console.log(`selectItem ` + value);
     this.commandControl.setValue(value);
   }
 
-  // FIXME rename these
-  public nav(direction: Direction): void {
-    this.commandControl.setValue(direction);
-    this.navigate(direction);
-    console.log(`nav! direction${JSON.stringify(direction)}`);
-  }
-  
-  public navigate(direction: Direction): void {
-    let exit: Coordinate[] = this.currentRoom.exits.filter((exit: Coordinate) => {
-      console.log(`exit=${JSON.stringify(exit)} direction=${JSON.stringify(direction)}`);
-      return exit.direction === direction;
-    });
-    if (exit.length > 0) {
-      this.currentRoom = this.worldService.getRoom(exit[0].roomId);
-      console.log(`navigating to=${JSON.stringify(exit[0])}`);
-    } else {
-      console.log(`WARN: exit not valid for requested direction=${JSON.stringify(direction)}`);
-    }
-  }
 }

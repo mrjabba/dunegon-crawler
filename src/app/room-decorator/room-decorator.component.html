@@ -1,16 +1,27 @@
 <div class="room" *ngIf="currentRoom">
+  <mat-grid-list cols="3" rowHeight="2:1" class="roomtest">
+    <mat-grid-tile></mat-grid-tile>
+    <mat-grid-tile [ngClass]="{'exit-north exit': hasExit(direction.North) }" (click)="nav(direction.North)">
+      <span class="material-icons" *ngIf="hasExit(direction.North)">north</span>
+    </mat-grid-tile>
+    <mat-grid-tile></mat-grid-tile>
+    <mat-grid-tile [ngClass]="{'exit-west exit': hasExit(direction.West) }" (click)="nav(direction.West)">
+      <span class="material-icons" *ngIf="hasExit(direction.West)">west</span>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <div class="exits">
+        <h4>Choose a direction</h4>
+      </div>
+    </mat-grid-tile>
+    <mat-grid-tile [ngClass]="{'exit-east exit': hasExit(direction.East) }" (click)="nav(direction.East)">
+      <span class="material-icons" *ngIf="hasExit(direction.East)">east</span>
+    </mat-grid-tile>
+    <mat-grid-tile></mat-grid-tile>
+    <mat-grid-tile [ngClass]="{'exit-south exit': hasExit(direction.South) }" (click)="nav(direction.South)">
+      <span class="material-icons" *ngIf="hasExit(direction.South)">south</span>
+    </mat-grid-tile>
+    <mat-grid-tile></mat-grid-tile>
+  </mat-grid-list>
   <h4>Location (<span id="currentRoomId">{{ currentRoom.id }}</span>)</h4>
   <div>{{currentRoom.desc}}</div>
-  <div [style]="currentRoom.style">*</div>
-  <span [ngSwitch]="currentRoom.style">
-    <ng-container *ngSwitchCase="'room'">
-      a room
-    </ng-container>
-    <ng-container *ngSwitchCase="'hallway'">
-      a hallway
-    </ng-container>
-    <ng-container *ngSwitchDefault>
-      i'm the default
-    </ng-container>
-  </span>  
 </div>

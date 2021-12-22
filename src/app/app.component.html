@@ -2,20 +2,14 @@
   <div class="title"><h1>Welcome to the world</h1></div>
   <form>
     <div class="location" *ngIf="currentRoom">
-      <app-room-decorator id="currentRoomId" [currentRoom]="currentRoom"></app-room-decorator>
+      <room-decorator id="currentRoomId" [currentRoom]="currentRoom"></room-decorator>
       <div class="room-contents">
         <h4>Room contents</h4>
         <mat-chip-list>
           <mat-chip *ngFor="let item of this.currentRoom.items"
-          (click)="quickNav(item.name)"
+          (click)="selectItem(item.name)"
           >{{item.name}}</mat-chip>
         </mat-chip-list>
-      </div>
-      <div class="exits">
-        <h4>Available Exits</h4>
-        <div class="navigation">
-          <button *ngFor="let coordinate of currentRoom.exits" mat-flat-button (click)="nav(coordinate.direction)" color="accent">{{coordinate.direction }}</button>
-        </div>
       </div>
       <div class="navigation">
         <mat-form-field appearance="fill">
@@ -36,16 +30,5 @@
 
     </div>
   </form>
-  <!-- debug -->
-  <!-- <div>
-    <p>
-      <b>Rooms:</b> {{ rooms | json }}
-    </p>
-  </div>
-  <div>
-    <p>
-      <b>Current Room:</b> {{ currentRoom | json }}
-    </p>
-  </div> -->
 </div>
 
