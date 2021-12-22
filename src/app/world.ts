@@ -1,11 +1,5 @@
 export interface Inventory {
-  weapons: Item[];
-  food: Item[]
-};
-
-export interface Item {
-  name: string;
-  desc?: string;  
+  items: string[];
 };
 
 export interface DirectionData {
@@ -31,35 +25,24 @@ export interface Room {
   id: number;
   desc: string;
   exits: Coordinate[];
-  items: Item[];
+  items: string[];
   style?: string;
 }
 
 export class ItemManifest {
-  private food: Item[];
-  private weapons: Item[];
+  private items: string[];
 
   constructor() {
     console.log('initializing item manifest');
-    this.food = [
-      { name: 'apple', desc: 'an apple'},
-      { name: 'turkey leg', desc: 'a turkey leg'},
-      { name: 'orange', desc: 'an orange'},
-      { name: 'banana', desc: 'a banana'},
+    this.items = [
+      'apple',
+      'turkey leg',
+      'orange',
+      'banana',
+      'hammer',
+      'sword',
+      'shield'
     ];
-    this.weapons = [
-      { name: 'hammer', desc: 'a hammer'},
-      { name: 'sword', desc: 'long sword'},
-      { name: 'shield', desc: 'small shield'}
-    ]
-  }
-
-  public getFood(): Item[] {
-    return this.food;
-  }
-
-  public getWeapons(): Item[] {
-    return this.weapons;
   }
 }
 

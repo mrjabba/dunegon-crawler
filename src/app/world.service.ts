@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Direction, Room } from './world';
+import { Direction, Inventory, Room } from './world';
 
 @Injectable({
   providedIn: 'root'
@@ -7,9 +7,17 @@ import { Direction, Room } from './world';
 export class WorldService {
   public static readonly STARTING_LOCATION: number = 100;
   private rooms: Room[] = [];
+  private inventory: Inventory;
 
   constructor() {
     this.loadRooms();
+    this.inventory = {
+      items: []
+    }
+  }
+
+  public getInventory(): Inventory {
+    return this.inventory;
   }
 
   public getRooms(): Room[] {
@@ -31,11 +39,11 @@ export class WorldService {
             style: 'room', // FIXME use an enum? style could be a UI descriptor?
             exits: [ { direction: Direction.North, roomId: 101} ],
             items: [
-              { name: 'apple' },
-              { name: 'turkey-leg' },
-              { name: 'hammer' },
-              { name: 'sword'},
-              { name: 'shield'}
+              'apple',
+              'turkey-leg',
+              'hammer',
+              'sword',
+              'shield'
             ]
           },
           { id: 101,
@@ -48,8 +56,8 @@ export class WorldService {
                { direction: Direction.West, roomId: 104}
                           ],
             items: [
-              { name: 'apple' },
-              { name: 'orange' }
+              'apple',
+              'orange'
             ]
           },
           { id: 102,
@@ -75,7 +83,7 @@ export class WorldService {
                { direction: Direction.East, roomId: 101}
                           ],
             items: [
-              { name: 'ball' }
+              'ball'
             ]
           },
           { id: 105,
@@ -84,7 +92,7 @@ export class WorldService {
                { direction: Direction.West, roomId: 102}
                           ],
             items: [
-              { name: 'ball' }
+              'ball'
             ]
           },
           { id: 106,
@@ -102,7 +110,7 @@ export class WorldService {
                { direction: Direction.East, roomId: 106}
                           ],
             items: [
-              { name: 'book' }
+              'book'
             ]
           },
           { id: 108,
@@ -112,7 +120,7 @@ export class WorldService {
               { direction: Direction.East, roomId: 109}
                           ],
             items: [
-              { name: 'sandwich' }
+              'sandwich'
             ]
           },
           { id: 109,

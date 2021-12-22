@@ -1,0 +1,25 @@
+<div class="inventory-container">
+  <h2>Room Contents</h2>
+  <div
+    cdkDropList
+    #roomContentsList="cdkDropList"
+    [cdkDropListData]="roomContents"
+    [cdkDropListConnectedTo]="[inventoryList]"
+    class="inventory-list"
+    (cdkDropListDropped)="drop($event)">
+    <div class="inventory-box" *ngFor="let item of roomContents" cdkDrag>{{item}}</div>
+  </div>
+</div>
+
+<div class="inventory-container">
+  <h2>Inventory</h2>
+  <div
+    cdkDropList
+    #inventoryList="cdkDropList"
+    [cdkDropListData]="inventory.items"
+    [cdkDropListConnectedTo]="[roomContentsList]"
+    class="inventory-list inventory-destination"
+    (cdkDropListDropped)="drop($event)">
+    <div class="inventory-box" *ngFor="let item of inventory.items" cdkDrag>{{item}}</div>
+  </div>
+</div>

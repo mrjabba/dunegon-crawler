@@ -28,10 +28,11 @@ export class AppComponent {
   public rooms: Room[];
 
   constructor(public worldService: WorldService) {
-    this.inventory = {
-      food: [],
-      weapons: []
-    };
+    this.inventory = {items: []};
+    // this.inventory = {
+    //   food: [],
+    //   weapons: []
+    // };
     this.itemManifest = new ItemManifest();
     this.rooms = this.worldService.getRooms();
     this.startOver();
@@ -53,9 +54,9 @@ export class AppComponent {
     this.currentRoom = this.worldService.getRoom(this.startingLocation);
   }
 
-  public selectItem(value: string) {
-    console.log(`selectItem ` + value);
-    this.commandControl.setValue(value);
-  }
+  // public selectItem(value: string) {
+  //   console.log(`selectItem ` + value);
+  //   this.commandControl.setValue(value);
+  // }
 
 }

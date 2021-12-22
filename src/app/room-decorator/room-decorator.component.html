@@ -24,4 +24,5 @@
   </mat-grid-list>
   <h4>Location (<span id="currentRoomId">{{ currentRoom.id }}</span>)</h4>
   <div>{{currentRoom.desc}}</div>
+  <inventory [roomContents]="currentRoom.items"></inventory>
 </div>
