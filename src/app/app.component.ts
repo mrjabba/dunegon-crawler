@@ -21,7 +21,6 @@ export class AppComponent {
     Validators.required
   ]);
   matcher = new MyErrorStateMatcher();
-  public readonly startingLocation: number = WorldService.STARTING_LOCATION;
   public currentRoom!: Room;
   private inventory: Inventory;
   private itemManifest: ItemManifest;
@@ -51,7 +50,7 @@ export class AppComponent {
   }
 
   public startOver(): void {
-    this.currentRoom = this.worldService.getRoom(this.startingLocation);
+    this.currentRoom = this.worldService.goToStartingRoom();
   }
 
   // public selectItem(value: string) {

@@ -5,6 +5,7 @@ import { MatInputModule } from '@angular/material/input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
+import { WorldService } from './world.service';
 
 let fixture: ComponentFixture<AppComponent>;
 let app: AppComponent;
@@ -29,7 +30,7 @@ describe('AppComponent', () => {
 });
 
   it(`should have a starting location`, () => {
-    expect(app.currentRoom.id).toEqual(app.startingLocation);
+    expect(app.currentRoom.id).toEqual(WorldService.STARTING_LOCATION);
   });
 
   it(`should include a room decorator`, () => {

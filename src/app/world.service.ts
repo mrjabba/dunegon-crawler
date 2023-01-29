@@ -24,6 +24,10 @@ export class WorldService {
     return this.rooms;
   }
 
+  public goToStartingRoom(): Room {
+    return this.getRoom(WorldService.STARTING_LOCATION);
+  }
+
   public getRoom(id: number): Room {
     return this.rooms.filter((room: Room) => {
       // FIXME write a test here
