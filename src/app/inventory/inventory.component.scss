@@ -2,6 +2,9 @@ h2 {
   text-align: center;
   padding: 10px;
 }
+.inventory-grid {
+  display: flex;
+}
 .inventory {
   border: 5px solid yellow;
   font-size: 1.5em;
@@ -10,26 +13,21 @@ h2 {
 }
 .inventory-container {
   box-sizing: border-box;
-  border-radius: 25px;
+  border-radius: 15px;
   background-color: black;
-  width: 400px;
-  max-width: 100%;
+  width: 225px;
   margin: 0 25px 25px 0;
-  display: inline-block;
   vertical-align: top;
 }
-
 .inventory-list {
   box-sizing: border-box;
   border: solid 1px #ccc;
   min-height: 60px;
   background: white;
-  border-radius: 25px;
+  border-radius: 15px;
   overflow: hidden;
-  display: block;
   background-color: black;
 }
-
 .inventory-box {
   padding: 20px 10px;
   border-bottom: solid 1px #ccc;
@@ -43,7 +41,6 @@ h2 {
   background-color: black;
   font-size: 14px;
 }
-
 .inventory-destination {
   height: 200px;
 }
