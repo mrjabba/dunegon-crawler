@@ -1,26 +1,7 @@
 <div class="tile">
   <div class="title title-background"><h1>Welcome to the world</h1></div>
-  <form>
-    <div class="location" *ngIf="currentRoom">
-      <room-decorator id="currentRoomId" [currentRoom]="currentRoom"></room-decorator>
-      <div class="navigation">
-        <mat-form-field appearance="fill">
-          <mat-label>Command</mat-label>
-          <input class="command" type="text" matInput [formControl]="commandControl" [errorStateMatcher]="matcher"
-                placeholder="Ex: inventory">
-          <mat-hint>Your command.</mat-hint>
-          <mat-error *ngIf="!commandControl.hasError('required')">
-            Command not valid.
-          </mat-error>
-          <mat-error *ngIf="commandControl.hasError('required')">
-            Command is <strong>required</strong>
-          </mat-error>
-        </mat-form-field>
-        <button mat-flat-button (click)="go()" color="primary">Go</button>
-        <button id="start-over" mat-flat-button (click)="startOver()" color="accent">Start Over</button>
-    </div>
-
-    </div>
-  </form>
+  <div class="location" *ngIf="currentRoom">
+    <room-decorator id="currentRoomId" [currentRoom]="currentRoom"></room-decorator>
+  </div>
 </div>
 

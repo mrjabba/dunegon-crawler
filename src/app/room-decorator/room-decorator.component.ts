@@ -52,4 +52,9 @@ export class RoomDecoratorComponent implements OnInit {
     this.currentRoom = this.worldService.getRoom(coordinate.roomId);
     console.log(`navigating to=${JSON.stringify(coordinate)}`);
   }
+
+  public startOver(): void {
+    this.currentRoom = this.worldService.goToStartingRoom();
+    console.log(`>>> startOver currentRoom=${JSON.stringify(this.currentRoom)}`);
+  }
 }
