@@ -9,9 +9,8 @@ describe('InventoryComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ InventoryComponent ],
       imports: [
-        DragDropModule
+        InventoryComponent
       ]
     })
     .compileComponents();

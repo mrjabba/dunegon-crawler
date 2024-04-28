@@ -4,7 +4,6 @@ import { Direction } from '../world';
 import { WorldService } from '../world.service';
 import { RoomDecoratorComponent } from './room-decorator.component';
 
-
 describe('RoomDecoratorComponent', () => {
   let component: RoomDecoratorComponent;
   let fixture: ComponentFixture<RoomDecoratorComponent>;
@@ -12,7 +11,7 @@ describe('RoomDecoratorComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ RoomDecoratorComponent ],
+      imports: [RoomDecoratorComponent],
       providers: [
         WorldService
       ]

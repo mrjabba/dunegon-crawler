@@ -1,8 +1,17 @@
+import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { Coordinate, Direction, Room } from '../world';
 import { WorldService } from '../world.service';
+import { InventoryComponent } from '../inventory/inventory.component';
+
 @Component({
   selector: 'room-decorator',
+  standalone: true,
+  providers: [WorldService],
+  imports: [
+    CommonModule,
+    InventoryComponent
+    ],
   templateUrl: './room-decorator.component.html',
   styleUrls: ['./room-decorator.component.scss']
 })
