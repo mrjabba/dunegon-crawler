@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { Coordinate, Direction, Room } from '../world';
 import { WorldService } from '../world.service';
 import { InventoryComponent } from '../inventory/inventory.component';
@@ -7,6 +7,7 @@ import { InventoryComponent } from '../inventory/inventory.component';
 @Component({
   selector: 'room-decorator',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [WorldService],
   imports: [
     CommonModule,

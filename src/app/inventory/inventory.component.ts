@@ -1,13 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { Inventory } from '../world';
 import { WorldService } from '../world.service';
 
 @Component({
   selector: 'inventory',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [WorldService],
   imports: [
     CommonModule,
