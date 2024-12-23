@@ -1,64 +1,54 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Compass } from '../compass';
-import { Direction } from '../world';
-import { WorldService } from '../world.service';
+import { TestBed } from '@angular/core/testing';
 import { RoomDecoratorComponent } from './room-decorator.component';
+import { WorldService } from '../world.service';
+import { RoomDecoratorComponentHarness } from './room-decorator.component.harness';
+import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
+import { Direction } from '../world';
 
 describe('RoomDecoratorComponent', () => {
-  let component: RoomDecoratorComponent;
-  let fixture: ComponentFixture<RoomDecoratorComponent>;
-  let worldService: WorldService;
 
-  beforeEach(async () => {
+  it('should render current location', async () => {
+    const { harness } = await setup();
+    const roomIdText = await harness.getRoomIdText();
+    expect(roomIdText).toContain(WorldService.STARTING_LOCATION.toString());
+  });
+
+  it('should allow player to move to a different room', async () => {
+    const { harness, worldService } = await setup();
+    const roomIdText = await harness.getRoomIdText();
+    await harness.navigate(Direction.North);
+    expect(await harness.getRoomIdText()).not.toContain(WorldService.STARTING_LOCATION.toString());
+
+    await harness.navigate(Direction.South);
+    const currentRoomId = await harness.getRoomIdText();
+    expect(currentRoomId).toContain(WorldService.STARTING_LOCATION.toString());
+
+    const currentRoom = worldService.getRoom(Number(currentRoomId));
+
+    // add a bit of randomness to the test. Later, we can design a spec
+    // that will allow the test to drive the player through the map
+    // using strategies like "go to the first exit" or "go to the last exit"
+    // maybe add chancejs
+    const firstPossibleCoodinate = currentRoom.exits[0];
+    const firstPossibleExit = firstPossibleCoodinate.direction;
+    await harness.navigate(firstPossibleExit);
+    expect(await harness.getRoomIdText()).toEqual(firstPossibleCoodinate.roomId.toString());
+  });
+
+  async function setup() {
     await TestBed.configureTestingModule({
       imports: [RoomDecoratorComponent],
-      providers: [
-        WorldService
-      ]
-    })
-    .compileComponents();
-  });
+      providers: [WorldService]
+    }).compileComponents();
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(RoomDecoratorComponent);
-    component = fixture.componentInstance;
-    worldService = TestBed.inject(WorldService);
-    component.currentRoom = worldService.getRoom(WorldService.STARTING_LOCATION);
-  });
+    const fixture = TestBed.createComponent(RoomDecoratorComponent);    
+    fixture.componentRef.setInput('startingRoomId', WorldService.STARTING_LOCATION);
+    const harness = await TestbedHarnessEnvironment.harnessForFixture(fixture, RoomDecoratorComponentHarness);
+    const worldService = TestBed.inject(WorldService);
 
-  it('should render current location', () => {
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('#currentRoomId')?.textContent).toContain(component.currentRoom?.id);
-  });
-
-  describe('navigation', () => {
-    // FIXME build a smaller testable Rooms world and inject so tests are not dependent on content change
-    describe('valid exits', () => {
-      [
-        { command: 'n', expectedRoomId: 101 }
-      ].forEach((testArgs) => {
-        it(`should move player to requested room`, () => {
-          let direction = new Compass().direction(testArgs.command);
-          component.nav(direction as Direction);
-          expect(component.currentRoom.id).toEqual(testArgs.expectedRoomId);
-          });
-      });
-    });
-
-    describe('invalid exits or directions', () => {
-      [
-        { command: 's'},
-        { command: 'e'},
-        { command: 'w'},
-        { command: 'x'}
-      ].forEach((testArgs) => {
-        it(`should not move player`, () => {
-          let direction = new Compass().direction(testArgs.command);
-          component.nav(direction as Direction);
-          expect(component.currentRoom.id).toEqual(WorldService.STARTING_LOCATION);
-        });
-      });
-    });
-  });
+    return {
+      harness,
+      worldService
+    }
+  }
 });

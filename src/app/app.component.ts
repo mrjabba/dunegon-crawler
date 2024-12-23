@@ -3,14 +3,12 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Room } from './world';
 import { WorldService } from './world.service';
 
-import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatInputModule } from '@angular/material/input';
-import { RouterOutlet } from '@angular/router';
 
 import { RoomDecoratorComponent } from './room-decorator/room-decorator.component';
 import { InventoryComponent } from './inventory/inventory.component';
@@ -21,7 +19,6 @@ import { InventoryComponent } from './inventory/inventory.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [
       CommonModule,
-      RouterOutlet,
       FormsModule,
       ReactiveFormsModule,
       MatFormFieldModule,
@@ -35,11 +32,11 @@ import { InventoryComponent } from './inventory/inventory.component';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  public currentRoom!: Room;
+  public startingRoomId!: number;
   public rooms: Room[];
 
   constructor(public worldService: WorldService) {
     this.rooms = this.worldService.getRooms();
-    this.currentRoom = this.worldService.goToStartingRoom();
+    this.startingRoomId = this.worldService.goToStartingRoom().id;
   }
 }

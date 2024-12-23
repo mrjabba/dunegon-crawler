@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, WritableSignal, computed, input, signal } from '@angular/core';
 import { Coordinate, Direction, Room } from '../world';
 import { WorldService } from '../world.service';
 import { InventoryComponent } from '../inventory/inventory.component';
@@ -18,7 +18,8 @@ import { InventoryComponent } from '../inventory/inventory.component';
 })
 export class RoomDecoratorComponent implements OnInit {
 
-  @Input()
+  // public startingRoom = input.required<Room>();
+  public startingRoomId = input.required<number>();
   public currentRoom!: Room;
 
   public direction = Direction;
@@ -28,7 +29,8 @@ export class RoomDecoratorComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    console.log(`currentRoom=${JSON.stringify(this.currentRoom?.exits)}`);
+    console.log(`startingRoomId=${JSON.stringify(this.startingRoomId())}`);
+    this.currentRoom = this.worldService.getRoom(this.startingRoomId());
   }
 
   public moveToExit(direction: Direction) {

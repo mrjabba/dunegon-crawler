@@ -21,7 +21,7 @@ describe('AppComponent', () => {
 });
 
   it(`should have a starting location`, () => {
-    expect(app.currentRoom.id).toEqual(WorldService.STARTING_LOCATION);
+    expect(app.startingRoomId).toEqual(WorldService.STARTING_LOCATION);
   });
 
   it(`should include a room decorator`, () => {
